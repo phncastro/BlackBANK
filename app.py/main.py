@@ -8,6 +8,6 @@ user3 = Usuario('Claudio', '05242351758')
 print(user1)
 user1.solicitar_criacao_de_conta()
 print(user1)
-Banco.criar_conta(user1)
+Banco.criar_conta(usuario=user1)
 print(user1)
 

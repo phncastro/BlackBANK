@@ -10,27 +10,33 @@ class Usuario:
 
     
     def solicitar_criacao_de_conta(self):
+
         if self._status == StatusUsuario.SOLICITACAO_PENDENTE:
-            raise TransicaoDeEstadoInvalidaError('Não é possível alterar para o mesmo estado.')
+            raise TransicaoDeEstadoInvalidaError(
+                'Solicitação de criação da conta já está pendente.'
+                )
         
-        elif self._status == StatusUsuario.CONTA_ATIVA:
-            raise TransicaoDeEstadoInvalidaError('Não é possível alterar o estado com a conta ativa.') 
+        if self._status == StatusUsuario.CONTA_ATIVA:
+            raise TransicaoDeEstadoInvalidaError(
+            'A conta já está ativa.'
+            ) 
                
-        else:
+        if self._status == StatusUsuario.SEM_CONTA:
             self._status = StatusUsuario.SOLICITACAO_PENDENTE
         
 
 
     def _ativar_conta(self):
-        '''Verificar se o status atual permite ativação
-           lançar erro se não permitir
-           mudar o Enum'''
         
         if self._status == StatusUsuario.SEM_CONTA:
-            raise TransicaoDeEstadoInvalidaError('É preciso solicitar a criação de conta antes de ativá-la')
+            raise TransicaoDeEstadoInvalidaError(
+                'É preciso solicitar a criação de conta antes de ativá-la'
+                )
         
-        elif self._status == StatusUsuario.CONTA_ATIVA:
-            raise TransicaoDeEstadoInvalidaError('Usuário ja está com a conta ativa.') 
+        if self._status == StatusUsuario.CONTA_ATIVA:
+            raise TransicaoDeEstadoInvalidaError(
+                'Usuário ja está com a conta ativa.'
+                ) 
                
-        else:
+        if self._status == StatusUsuario.SOLICITACAO_PENDENTE:
              self._status = StatusUsuario.CONTA_ATIVA

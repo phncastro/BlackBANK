@@ -1,12 +1,11 @@
-from models.usuario import Usuario
 from services.contaService import ContaService
 
 class Conta():
 
-    def __init__(self, usuario: Usuario):
+    def __init__(self, usuario, numero_conta):
         self._usuario = usuario
         self._saldo = 0
-        self._numero_conta = None
+        self._numero_conta = numero_conta
     
     def depositar(self, valor):
         deposito_aprovado = ContaService.regras_de_deposito(valor)
@@ -26,5 +25,6 @@ class Conta():
 
     def receber(self, valor):
         self._saldo += valor
+
 
 
