@@ -1,4 +1,4 @@
-from services.contaService import ContaService
+from services.conta_service import ContaService
 
 class Conta():
     ''' Classe que representa a conta do usuário na instituição financeira Banco.'''

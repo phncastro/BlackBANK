@@ -1,6 +1,7 @@
 class ContaService:
     ''' Classe que representa os serviços da classe Conta.'''
 
+    @staticmethod
     def regras_de_deposito(valor):
         ''' Método que define as regras para depósito na conta.
         
@@ -23,8 +24,9 @@ class ContaService:
         else:
             return True      
         
+    @staticmethod
     def regras_de_saque(valor, saldo):
-        ''' Método que define as regras para depósito na conta.
+        ''' Método que define as regras para saque na conta.
         
             Parâmetros:
             
@@ -46,8 +48,9 @@ class ContaService:
         else:
             return True
         
+    @staticmethod
     def regras_de_transferencia(valor, saldo):
-        ''' Método que define as regras para depósito na conta.
+        ''' Método que define as regras para transferência na conta.
         
             Parâmetros:
             

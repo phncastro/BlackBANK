@@ -22,12 +22,12 @@ class Banco:
         cria a conta e gera o número para essa conta.
         '''
 
-        if usuario._status == StatusUsuario.SEM_CONTA:
+        if usuario.status == StatusUsuario.SEM_CONTA:
             raise CriacaoDeContaNegadaError(
                 'Para criar a conta é necessário o Usuário solicitar primeiro.'
                 )
         
-        if usuario._status == StatusUsuario.CONTA_ATIVA:
+        if usuario.status == StatusUsuario.CONTA_ATIVA:
             raise CriacaoDeContaNegadaError(
                 'Usuário já possui conta ativa.'
                 )
@@ -36,6 +36,7 @@ class Banco:
         conta = Conta(usuario, numero_gerado)
 
         usuario._ativar_conta()
+        return conta
 
     def _gerar_numero_da_conta(self):
         '''

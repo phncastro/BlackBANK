@@ -72,3 +72,7 @@ class Usuario:
                
         if self._status == StatusUsuario.SOLICITACAO_PENDENTE:
              self._status = StatusUsuario.CONTA_ATIVA
+
+    @property
+    def status(self):
+        return self._status
