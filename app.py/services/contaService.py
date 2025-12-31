@@ -1,6 +1,16 @@
 class ContaService:
+    ''' Classe que representa os serviços da classe Conta.'''
 
     def regras_de_deposito(valor):
+        ''' Método que define as regras para depósito na conta.
+        
+            Parâmetros:
+            
+            - valor: Valor a ser filtrado e verificado se é possível fazer o depósito.
+            
+            Return: Erro, se não for possível, se for autoriza o depósito.
+            Define limites de depósito entre R$20,00 e R$15000,00.
+        '''
         try:
             valor = float(valor)
         except ValueError:
@@ -14,6 +24,16 @@ class ContaService:
             return True      
         
     def regras_de_saque(valor, saldo):
+        ''' Método que define as regras para depósito na conta.
+        
+            Parâmetros:
+            
+            - valor: Valor a ser filtrado e verificado se é possível fazer o depósito.
+            - saldo: Saldo atual da conta, será consultado para verificar se possui saldo suficiente.
+            
+            Return: Erro, se não for possível, se for autoriza o saque.
+            Define limites de saque entre R$20,00 e o saldo disponível.
+        '''
         try:
             valor = float(valor)
         except ValueError:
@@ -27,6 +47,16 @@ class ContaService:
             return True
         
     def regras_de_transferencia(valor, saldo):
+        ''' Método que define as regras para depósito na conta.
+        
+            Parâmetros:
+            
+            - Valor: Valor a ser filtrado e verificado se é possível fazer o depósito.
+            - saldo: Saldo atual da conta, será consultado para verificar se possui saldo suficiente
+
+            Return: Erro, se não for possível, se for autoriza o depósito.
+            Define limites de transfêrencia de no máximo o saldo disponível na conta.
+        '''
         try:
             valor = float(valor)
         except ValueError:

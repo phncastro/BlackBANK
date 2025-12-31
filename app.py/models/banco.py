@@ -6,8 +6,21 @@ from random import randint
 
 
 class Banco:
+    '''
+    Banco = Classe que representa a instituição financeira,
+    que faz a intermediação entre Usuário e Conta.
+    '''
 
     def criar_conta(self, usuario: Usuario):
+        ''' 
+        parâmetros: 
+
+        - self: Instância da classe Banco 
+        - usuario: Usuário que deseja criar a conta.
+
+        return: Erro, se o usuário não puder ter a conta criada, ou se puder,
+        cria a conta e gera o número para essa conta.
+        '''
 
         if usuario._status == StatusUsuario.SEM_CONTA:
             raise CriacaoDeContaNegadaError(
@@ -25,6 +38,9 @@ class Banco:
         usuario._ativar_conta()
 
     def _gerar_numero_da_conta(self):
+        '''
+        Gera o número da conta.
+        '''
         return  str(randint(1, 9999)).zfill(4)
         
 
