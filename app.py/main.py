@@ -1,15 +1,31 @@
 from models.usuario import Usuario
 from models.banco import Banco
+from core.exceptions import (
+    TransicaoDeEstadoInvalidaError,
+    CriacaoDeContaNegadaError
+)
 
-user1 = Usuario('Pablo', '10492456607')
-user2 = Usuario('Joao', '01234567891')
-user3 = Usuario('Claudio', '05242351758')
+def teste_fluxo_completo():
+    banco = Banco()
+    usuario = Usuario("Pablo", "10492456607")
 
-banco = Banco()
+    print("Status inicial:", usuario.status)
 
-print(user1)
-user1.solicitar_criacao_de_conta()
-print(user1)
-banco.criar_conta(usuario=user1)
-print(user1._status)
+    try:
+        usuario.solicitar_criacao_de_conta()
+        print("Após solicitação:", usuario.status)
 
+        conta = banco.criar_conta(usuario)
+        print("Após criação:", usuario.status)
+
+        conta.depositar(1000)
+        print("Depósito OK")
+
+        conta.sacar(1200)
+        print("Saque OK")
+
+    except (TransicaoDeEstadoInvalidaError, CriacaoDeContaNegadaError, ValueError) as erro:
+        print("Erro:", erro)
+
+if __name__ == "__main__":
+    teste_fluxo_completo()
