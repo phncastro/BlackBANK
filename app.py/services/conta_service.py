@@ -1,3 +1,5 @@
+from core.exceptions import EntradaInvalidaError, LimiteDepositoError, LimiteSaqueError, LimiteTransferenciaError
+
 class ContaService:
     ''' Classe que representa os serviços da classe Conta.'''
 
@@ -14,13 +16,13 @@ class ContaService:
         '''
         try:
             valor = float(valor)
-        except ValueError:
+        except EntradaInvalidaError:
             raise ValueError('O valor deve ser um número.')
 
         if valor < 20:
-            raise ValueError('O depósito mínimo é de R$20,00.')
+            raise LimiteDepositoError('O depósito mínimo é de R$20,00.')
         elif valor > 15000:
-            raise ValueError('O depósito máximo é de R$15000,00.')
+            raise LimiteDepositoError('O depósito máximo é de R$15000,00.')
         else:
             return True      
         
@@ -38,13 +40,13 @@ class ContaService:
         '''
         try:
             valor = float(valor)
-        except ValueError:
-            raise ValueError('O valor deve ser um número.')
+        except EntradaInvalidaError:
+            raise EntradaInvalidaError('O valor deve ser um número.')
 
         if valor < 20:
-            raise ValueError('O saque mínimo é de R$20,00.')
+            raise LimiteSaqueError('O saque mínimo é de R$20,00.')
         elif valor > saldo:
-            raise ValueError(f'Você nao possui saldo para este saque, seu saldo disponível é de: R${saldo:.2f}.')
+            raise LimiteSaqueError(f'Você nao possui saldo para este saque, seu saldo disponível é de: R${saldo:.2f}.')
         else:
             return True
         
@@ -62,13 +64,13 @@ class ContaService:
         '''
         try:
             valor = float(valor)
-        except ValueError:
-            raise ValueError('O valor deve ser um número.')
+        except EntradaInvalidaError:
+            raise EntradaInvalidaError('O valor deve ser um número.')
 
         if valor <= 0:
-            raise ValueError('O valor deve ser positivo.')
+            raise LimiteTransferenciaError('O valor deve ser positivo.')
         elif valor > saldo:
-            raise ValueError(f'Você nao possui saldo para esta transferência, seu saldo disponível é de: R${saldo:.2f}.')
+            raise LimiteTransferenciaError(f'Você nao possui saldo para esta transferência, seu saldo disponível é de: R${saldo:.2f}.')
         else:
             return True
     
