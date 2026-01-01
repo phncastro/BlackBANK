@@ -4,8 +4,6 @@ class TransicaoDeEstadoInvalidaError(Exception):
     def __init__(self, *args):
         super().__init__(*args)
 
-
-
 class CriacaoDeContaNegadaError(Exception):
     ''' Exceção lançada quando o Banco tenta criar a conta para o usuário mas ele não solicitou,
         ou já está com a conta ativa.'''

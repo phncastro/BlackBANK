@@ -27,6 +27,7 @@ class Conta():
         deposito_aprovado = ContaService.regras_de_deposito(valor)
         if deposito_aprovado:
             self._saldo += valor
+        return self._saldo
 
     def sacar(self, valor):
         ''' Método que permite o usuário sacar um valor da conta.

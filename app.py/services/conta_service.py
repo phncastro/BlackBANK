@@ -16,8 +16,8 @@ class ContaService:
         '''
         try:
             valor = float(valor)
-        except EntradaInvalidaError:
-            raise ValueError('O valor deve ser um número.')
+        except ValueError:
+            raise EntradaInvalidaError('O valor deve ser um número.')
 
         if valor < 20:
             raise LimiteDepositoError('O depósito mínimo é de R$20,00.')
@@ -40,7 +40,7 @@ class ContaService:
         '''
         try:
             valor = float(valor)
-        except EntradaInvalidaError:
+        except ValueError:
             raise EntradaInvalidaError('O valor deve ser um número.')
 
         if valor < 20:
@@ -64,7 +64,7 @@ class ContaService:
         '''
         try:
             valor = float(valor)
-        except EntradaInvalidaError:
+        except ValueError:
             raise EntradaInvalidaError('O valor deve ser um número.')
 
         if valor <= 0:
