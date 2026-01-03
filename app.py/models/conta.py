@@ -24,9 +24,9 @@ class Conta():
             - self: Conta do usuário que será feita o depósito.
             - valor: Valor a ser depositado na conta.
         '''
-        deposito_aprovado = ContaService.regras_de_deposito(valor)
-        if deposito_aprovado:
-            self._saldo += valor
+        ContaService.regras_de_deposito(valor)
+        self._saldo += valor
+        
         return self._saldo
 
     def sacar(self, valor):
@@ -37,11 +37,12 @@ class Conta():
             - self: Conta do usuário que será feita o saque.
             - valor: Valor do saque desejado.
         '''
-        saque_aprovado = ContaService.regras_de_saque(valor, self._saldo)
-        if saque_aprovado:
-            self._saldo -= valor
+        ContaService.regras_de_saque(valor, self._saldo)
+        self._saldo -= valor
 
-    def transferir(self, conta, valor):
+        return self._saldo
+
+    def transferir(self, conta_destino, valor):
         ''' Método que permite o usuário transferir um valor para outra conta.
 
             Parâmetros:
@@ -51,10 +52,10 @@ class Conta():
             - valor: Valor a ser transferido para a conta desejada.
         '''
 
-        transferencia_aprovada = ContaService.regras_de_transferencia(valor, self._saldo)
-        if transferencia_aprovada:
-            self._saldo -= valor
-            conta.receber(valor)
+        ContaService.regras_de_transferencia(valor, self._saldo)
+        self._saldo -= valor
+        conta_destino.receber(valor)
+
 
     def receber(self, valor):
         ''' Método que permite a conta alterar o valor do saldo,
