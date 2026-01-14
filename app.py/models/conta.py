@@ -1,6 +1,7 @@
 from services.conta_service import ContaService
+from database.database import Base
 
-class Conta():
+class Conta(Base):
     ''' Classe que representa a conta do usuário na instituição financeira Banco.'''
 
     def __init__(self, usuario, numero_conta):
@@ -8,7 +9,6 @@ class Conta():
 
             parâmetros:
 
-            - self: Instância da classe conta
             - usuario: Usuário que vai ter a conta criada.
             - numero_conta: Número único, que pertence a conta deste usuário.
         '''
@@ -21,7 +21,6 @@ class Conta():
 
             Parâmetros:
 
-            - self: Conta do usuário que será feita o depósito.
             - valor: Valor a ser depositado na conta.
         '''
         ContaService.regras_de_deposito(valor)
@@ -34,7 +33,6 @@ class Conta():
 
             Parâmetros:
 
-            - self: Conta do usuário que será feita o saque.
             - valor: Valor do saque desejado.
         '''
         ContaService.regras_de_saque(valor, self._saldo)
@@ -47,7 +45,6 @@ class Conta():
 
             Parâmetros:
 
-            - self: Conta do usuário que será feita a transferência.
             - conta: Conta que irá receber o valor transferido.
             - valor: Valor a ser transferido para a conta desejada.
         '''
@@ -63,7 +60,6 @@ class Conta():
             
             parâmetros:
 
-            - self: Conta que irá receber o valor para o seu saldo.
             - valor: Valor que irá ser adicionado no saldo da conta.
         '''
         self._saldo += valor
