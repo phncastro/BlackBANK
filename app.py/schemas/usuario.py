@@ -6,6 +6,7 @@ class UsuarioCreate(BaseModel):
     cpf: str
 
 class UsuarioResponse(BaseModel):
+    id: int
     nome: str
     cpf: str
     status: StatusUsuario
