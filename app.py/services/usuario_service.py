@@ -12,7 +12,7 @@ class UsuarioService:
 
             - usuario: Usuário que fez a solicitação
 
-            return: Erro, de acordo com o estado do usuário,
+            return: Erro, se o status do usuário nao for StatusUsuario.SEM_CONTA,
             se o estado atual for SEM_CONTA, permite ele fazer a solicitação,
             alterando assim o estado para SOLICITACAO_PENDENTE.
         '''
