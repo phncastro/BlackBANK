@@ -6,7 +6,15 @@ from core.status_usuario import StatusUsuario
 from models.conta import Conta
 
 class BancoService:
-    def criar_conta(self, usuario: Usuario):
+    '''Classe que guarda e realiza os métodos do banco'''
+
+    def _gerar_numero_da_conta():
+        '''
+        Gera o número da conta.
+        '''
+        return  str(randint(1, 9999)).zfill(4)
+
+    def criar_conta(usuario: Usuario):
         ''' 
         parâmetros: 
 
@@ -26,18 +34,11 @@ class BancoService:
                 'Usuário já possui conta ativa.'
                 )
         
-        numero_gerado = self._gerar_numero_da_conta()
+        numero_gerado = BancoService._gerar_numero_da_conta()
         conta = Conta(usuario, numero_gerado)
 
         UsuarioService._ativar_conta(usuario)
         return conta
-
-    def _gerar_numero_da_conta():
-        '''
-        Gera o número da conta.
-        '''
-        return  str(randint(1, 9999)).zfill(4)
-        
 
         
 
