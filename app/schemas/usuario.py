@@ -1,5 +1,4 @@
 from pydantic import BaseModel, ConfigDict
-from app.core.status_usuario import StatusUsuario
 from app.schemas.conta import Conta
 
 class Usuario(BaseModel):
@@ -20,5 +19,9 @@ class UsuarioResponse(BaseModel):
     nome: str
     cpf: str
     status: int
-    conta: Conta
+    model_config = ConfigDict(from_attributes=True)
+
+class UsuarioSolicitacaoResponse(BaseModel):
+    id: int
+    status: int
     model_config = ConfigDict(from_attributes=True)
