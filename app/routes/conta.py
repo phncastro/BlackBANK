@@ -7,7 +7,7 @@ from app.services.conta_service import ContaService
 
 conta_router = APIRouter(prefix='/conta')
 
-@conta_router.post('/depositos ', response_model=ContaDepositoResponse)
+@conta_router.post('/depositos/', response_model=ContaDepositoResponse)
 def deposito(id_e_valor:ContaDeposito, db:Session=Depends(get_db)):
     db_conta = db.query(Conta).filter(Conta.id == id_e_valor.id).first()
     if db_conta == None:
@@ -16,7 +16,7 @@ def deposito(id_e_valor:ContaDeposito, db:Session=Depends(get_db)):
     db.commit()
     return db_conta
 
-@conta_router.post('/saques', response_model=ContaSaqueResponse)
+@conta_router.post('/saques/', response_model=ContaSaqueResponse)
 def saque(id_e_valor:ContaSaque, db:Session=Depends(get_db)):
     db_conta = db.query(Conta).filter(Conta.id == id_e_valor.id).first()
     if db_conta == None:
@@ -25,7 +25,7 @@ def saque(id_e_valor:ContaSaque, db:Session=Depends(get_db)):
     db.commit()
     return db_conta
 
-@conta_router.post('/transferencias', response_model=ContaTransferenciaResponse)
+@conta_router.post('/transferencias/', response_model=ContaTransferenciaResponse)
 def transferencia(id_iddestinatario_valor: ContaTransferencia, db:Session=Depends(get_db)):
     db_conta = db.query(Conta).filter(Conta.id == id_iddestinatario_valor.id).first()
     db_destinatario = db.query(Conta).filter(Conta.id == id_iddestinatario_valor.destinatario_id).first()
