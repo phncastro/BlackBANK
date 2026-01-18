@@ -3,7 +3,6 @@ from pydantic import BaseModel, ConfigDict
 class Conta(BaseModel):
     id: int
     numero: int
-    usuario_id: int
     saldo: float
     model_config = ConfigDict(from_attributes=True)
 
@@ -11,7 +10,6 @@ class ContaCreate(BaseModel):
     numero: int
     usuario_id: int
     model_config = ConfigDict(from_attributes=True)
-
 
 class ContaResponse(BaseModel):
     id: int

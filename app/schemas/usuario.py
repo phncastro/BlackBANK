@@ -1,4 +1,5 @@
 from pydantic import BaseModel, ConfigDict
+from typing import Optional
 from app.schemas.conta import Conta
 
 class Usuario(BaseModel):
@@ -6,7 +7,7 @@ class Usuario(BaseModel):
     nome: str
     cpf: str
     status: int
-    conta: Conta
+    conta: Optional[Conta] = None
     model_config = ConfigDict(from_attributes=True)
 
 class UsuarioCreate(BaseModel):
@@ -19,6 +20,7 @@ class UsuarioResponse(BaseModel):
     nome: str
     cpf: str
     status: int
+    conta: Optional[Conta] = None
     model_config = ConfigDict(from_attributes=True)
 
 class UsuarioSolicitacaoResponse(BaseModel):

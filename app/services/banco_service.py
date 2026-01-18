@@ -27,7 +27,6 @@ class BancoService:
         return: Erro, se o usuário não puder ter a conta criada, ou se puder,
         cria a conta e gera o número para essa conta.
         '''
-
         if usuario.status == StatusUsuario.SEM_CONTA:
             raise CriacaoDeContaNegadaError(
                 'Para criar a conta é necessário o Usuário solicitar primeiro.'
@@ -39,7 +38,7 @@ class BancoService:
                 )
         
         numero_gerado = BancoService._gerar_numero_da_conta()
-        conta = Conta(numero_gerado, usuario.id)
+        conta = Conta(numero=numero_gerado, usuario_id= usuario.id)
 
         UsuarioService._ativar_conta(usuario)
         return conta

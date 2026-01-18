@@ -1,4 +1,5 @@
 from app.core.exceptions import EntradaInvalidaError, LimiteDepositoError, LimiteSaqueError, LimiteTransferenciaError
+from app.models.conta import Conta
 
 class ContaService:
     ''' Classe que representa os serviços possiveis da classe Conta.'''
@@ -113,7 +114,7 @@ class ContaService:
     
 
     @staticmethod
-    def transferir(conta_remetente, conta_destino, valor):
+    def transferir(conta_remetente: Conta, conta_destino: Conta, valor: int):
         ''' Método que permite o usuário transferir um valor para outra conta.
 
             Parâmetros:
@@ -123,19 +124,5 @@ class ContaService:
         '''
 
         ContaService.regras_de_transferencia(valor, conta_remetente.saldo)
-        conta_remetente.saldo -= valor
-        conta_destino.receber(valor)
-
-
-    @staticmethod
-    def receber(conta_id, valor):
-        ''' Método que permite a conta alterar o valor do saldo,
-            adicionando o valor de uma transferência. 
-            
-            parâmetros:
-
-            - valor: Valor que irá ser adicionado no saldo da conta.
-        '''
-        conta_id.saldo += valor
-    
-    
+        conta_remetente.enviar(conta_remetente, valor)
+        conta_destino.receber(conta_destino, valor)
