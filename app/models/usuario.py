@@ -9,8 +9,12 @@ class Usuario(Base):
 
     __tablename__ = 'usuarios'
     id = Column(Integer, primary_key=True, index=True)
-    nome = Column(String)
+    nome = Column(String, nullable=False)
     cpf = Column(String, unique= True)
     status = Column(Integer, nullable=False, default=StatusUsuario.SEM_CONTA)
-    conta = relationship('Conta', back_populates= 'usuario')
+    conta = relationship(
+        'Conta',
+        back_populates= 'usuario',
+        uselist=False,
+        cascade="all, delete")
 
