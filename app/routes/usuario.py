@@ -8,7 +8,7 @@ from app.services.usuario_service import UsuarioService
 
 usuario_router = APIRouter(prefix='/usuarios')
 
-@usuario_router.post('/criar-usuario', response_model= UsuarioResponse)
+@usuario_router.post('/criar-usuario/', response_model= UsuarioResponse)
 def criar_usuario(usuario: UsuarioCreate, db:Session=Depends(get_db)):
     db_usuario = Usuario(nome= usuario.nome, cpf= usuario.cpf)
     db.add(db_usuario)
@@ -16,15 +16,18 @@ def criar_usuario(usuario: UsuarioCreate, db:Session=Depends(get_db)):
     db.refresh(db_usuario)
     return db_usuario
     
-@usuario_router.get('/{id}', response_model= UsuarioResponse)
+@usuario_router.get('/{id}/', response_model= UsuarioResponse)
 def consultar_usuario(id:int, db:Session=Depends(get_db)):
     db_usuario = db.query(Usuario).filter(Usuario.id==id).first()
     if db_usuario is None:
         raise HTTPException(status_code=404, detail='Usuário não encontrado')
     return db_usuario
 
-@usuario_router.post('/{id}/solicitar-conta', response_model= UsuarioSolicitacaoResponse)
+@usuario_router.post('/{id}/solicitar-conta/', response_model= UsuarioSolicitacaoResponse)
 def solicitar_conta(id:int, db:Session=Depends(get_db)):
     db_usuario = db.query(Usuario).filter(Usuario.id == id).first()
-    solicitacao = UsuarioService.solicitar_criacao_de_conta(db_usuario)
-    return solicitacao
+    if db_usuario is None:
+        raise HTTPException(status_code=404, detail='Usuário não encontrado')
+    UsuarioService.solicitar_criacao_de_conta(db_usuario)
+    db.commit()
+    return db_usuario
