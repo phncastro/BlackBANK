@@ -1,11 +1,15 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 from typing import Optional
 from app.schemas.conta import Conta
+from app.core.validators.cpf import validar_cpf
+from app.core.validators.email import validar_email
+from app.core.validators.nome import validar_nome
 
 class Usuario(BaseModel):
     id: int
     nome: str
     cpf: str
+    email: str 
     status: int
     conta: Optional[Conta] = None
     model_config = ConfigDict(from_attributes=True)
@@ -13,12 +17,29 @@ class Usuario(BaseModel):
 class UsuarioCreate(BaseModel):
     nome : str
     cpf: str
+    email: str
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator('nome')
+    @classmethod
+    def nome_valido(cls, nome):
+        return validar_nome(nome)
+
+    @field_validator('cpf')
+    @classmethod
+    def cpf_valido(cls, cpf):
+        return validar_cpf(cpf)
+    
+    @field_validator('email')
+    @classmethod
+    def email_valido(cls, email):
+        return validar_email(email)
 
 class UsuarioResponse(BaseModel):
     id: int
     nome: str
     cpf: str
+    email: str
     status: int
     conta: Optional[Conta] = None
     model_config = ConfigDict(from_attributes=True)
