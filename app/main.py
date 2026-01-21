@@ -4,8 +4,7 @@ from app.routes.conta import conta_router
 from app.routes.banco import banco_router
 from app.database.database import Base
 from app.database.database import engine
-from app.models.conta import Conta
-from app.models.usuario import Usuario
+
 
 Base.metadata.create_all(bind=engine)
 
