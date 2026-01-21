@@ -36,3 +36,16 @@ class LimiteTransferenciaError(Exception):
 
     def __init__(self, *args):
         super().__init__(*args)
+
+class CpfInvalidoError(Exception):
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+class EmailInvalidoError(Exception):
+    def __init__(self, *args):
+        super().__init__(*args)
+
+class NomeInvalidoError(Exception):
+    def __init__(self, *args):
+        super().__init__(*args)
