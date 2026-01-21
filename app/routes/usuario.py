@@ -10,7 +10,7 @@ usuario_router = APIRouter(prefix='/usuarios')
 
 @usuario_router.post('/criar-usuario/', response_model= UsuarioResponse)
 def criar_usuario(usuario: UsuarioCreate, db:Session=Depends(get_db)):
-    db_usuario = Usuario(nome= usuario.nome, cpf= usuario.cpf)
+    db_usuario = Usuario(nome= usuario.nome, cpf= usuario.cpf, email= usuario.email)
     db.add(db_usuario)
     db.commit()
     db.refresh(db_usuario)

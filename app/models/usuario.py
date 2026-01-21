@@ -11,6 +11,7 @@ class Usuario(Base):
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String, nullable=False)
     cpf = Column(String, unique= True)
+    email = Column(String, unique=True)
     status = Column(Integer, nullable=False, default=StatusUsuario.SEM_CONTA)
     conta = relationship(
         'Conta',
