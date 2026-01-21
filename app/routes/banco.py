@@ -21,7 +21,7 @@ def criar_conta(id:int, db:Session=Depends(get_db)):
     return conta
 
 @banco_router.get('/usuarios/', response_model= List[usuario.Usuario])
-def ler_estudantes(db:Session=Depends(get_db)):
+def ler_usuarios(db:Session=Depends(get_db)):
     usuarios = db.query(Usuario).options(joinedload(Usuario.conta)).all()
     return usuarios
 
