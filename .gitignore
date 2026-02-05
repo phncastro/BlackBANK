@@ -1,2 +1,11 @@
-venv
-.vscode
+# Ambiente virtual
+venv/
+
+# Cache Python
+__pycache__/
+
+# Arquivos de banco local
+database/
+
+# IDEs
+.vscode/
