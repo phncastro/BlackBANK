@@ -5,7 +5,7 @@ venv/
 __pycache__/
 
 # Arquivos de banco local
-database/
+.env
 
 # IDEs
 .vscode/
