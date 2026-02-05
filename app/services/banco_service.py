@@ -14,7 +14,7 @@ class BancoService:
         Gera o número da conta.
         '''
         numero = str(randint(1, 9999)).zfill(4)
-        return  int(numero)
+        return  numero
 
 
     @staticmethod
@@ -38,7 +38,7 @@ class BancoService:
                 )
         
         numero_gerado = BancoService._gerar_numero_da_conta()
-        conta = Conta(numero=numero_gerado, usuario_id= usuario.id)
+        conta = Conta(numero=numero_gerado, usuario_id=usuario.id)
 
         UsuarioService._ativar_conta(usuario)
         return conta

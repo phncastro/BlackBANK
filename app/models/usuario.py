@@ -1,7 +1,8 @@
 from app.database.database import Base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Enum
 from sqlalchemy.orm import relationship
 from app.core.status_usuario import StatusUsuario
+
 
 class Usuario(Base):
     ''' Classe Usuario, que representa a pessoa que deseja criar uma conta no Banco.
@@ -12,7 +13,7 @@ class Usuario(Base):
     nome = Column(String, nullable=False)
     cpf = Column(String, unique= True)
     email = Column(String, unique=True)
-    status = Column(Integer, nullable=False, default=StatusUsuario.SEM_CONTA)
+    status = Column(Enum(StatusUsuario), nullable=False, default=StatusUsuario.SEM_CONTA)
     conta = relationship(
         'Conta',
         back_populates= 'usuario',

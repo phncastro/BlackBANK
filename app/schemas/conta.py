@@ -1,46 +1,38 @@
 from pydantic import BaseModel, ConfigDict
+from datetime import datetime
 
 class Conta(BaseModel):
     id: int
-    numero: int
+    numero: str
     saldo: float
+    usuario_id: int
     model_config = ConfigDict(from_attributes=True)
 
 class ContaCreate(BaseModel):
-    numero: int
+    numero: str
     usuario_id: int
     model_config = ConfigDict(from_attributes=True)
 
-class ContaResponse(BaseModel):
+class ContaTransacao(BaseModel):
     id: int
-    numero: int
-    usuario_id: int
+    valor: float
+
+class ContaTransacaoResponse(BaseModel):
+    id_transacao: int
+    num_conta: str
+    valor: int
     saldo: float
-    model_config = ConfigDict(from_attributes=True)
-
-class ContaDeposito(BaseModel):
-    id: int
-    valor: int
-
-
-class ContaSaque(BaseModel):
-    id: int
-    valor: int
-
-
-class ContaDepositoResponse(BaseModel):
-    saldo: int
-    model_config = ConfigDict(from_attributes=True)
-
-class ContaSaqueResponse(BaseModel):
-    saldo: int
-    model_config = ConfigDict(from_attributes=True)
-
-class ContaTransferenciaResponse(BaseModel):
-    saldo: int
-    model_config = ConfigDict(from_attributes=True)
+    data_hora = datetime
 
 class ContaTransferencia(BaseModel):
-    id: int
-    destinatario_id: int
+    num_conta: str
+    num_conta_destino: str
+    valor: float
+
+class ContaTransferenciaResponse(BaseModel):
+    id_transacao: int
+    num_conta: str
+    num_conta_destino: str
     valor: int
+    saldo: float
+    data_hora = datetime

@@ -1,6 +1,6 @@
-from enum import IntEnum
+from enum import Enum
 
-class StatusUsuario(IntEnum):
+class StatusUsuario(str, Enum):
     '''Enum para guardar os possíveis estados do Usuário
 
         - SEM_CONTA = Valor que vem por padrão,
@@ -13,6 +13,6 @@ class StatusUsuario(IntEnum):
         - CONTA_ATIVA = Estado final, que demonstra que o usuário já possui a conta ativa.
         
         '''
-    SEM_CONTA = 1
-    SOLICITACAO_PENDENTE = 2
-    CONTA_ATIVA = 3
+    SEM_CONTA = "SEM_CONTA"
+    SOLICITACAO_PENDENTE = "SOLICITACAO_PENDENTE"
+    CONTA_ATIVA = "CONTA_ATIVA"

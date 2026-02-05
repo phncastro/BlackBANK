@@ -7,7 +7,7 @@ class Conta(Base):
 
     __tablename__ = 'contas'
     id = Column(Integer, primary_key=True, index=True)
-    numero = Column(Integer, unique=True, nullable=False)
+    numero = Column(String, unique=True, nullable=False, index=True)
     saldo = Column(Float, default=0, nullable=False)
     usuario_id = Column(
         Integer,
