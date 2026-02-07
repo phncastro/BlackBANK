@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-from app.schemas.usuario import UsuarioCreate, UsuarioCreateResponse, UsuarioSolicitacaoResponse
+from app.schemas.usuario import UsuarioCreate, UsuarioBase, UsuarioSolicitacaoResponse
 from app.database.database import get_db
 from sqlalchemy.orm import Session
 from app.models.usuario import Usuario
@@ -8,8 +8,9 @@ from app.services.usuario_service import UsuarioService
 
 usuario_router = APIRouter(prefix='/usuarios')
 
+##################################################################################
 @usuario_router.post('/criar-usuario/',
-    response_model= UsuarioCreateResponse)
+    response_model= UsuarioBase)
 def criar_usuario(
     usuario: UsuarioCreate,
     db:Session=Depends(get_db)):
@@ -19,8 +20,9 @@ def criar_usuario(
     db.commit()
     db.refresh(db_usuario)
 
-    return {"mensagem": "Usuário criado com sucesso", "usuario_id": db_usuario.id} 
+    return db_usuario
 
+##################################################################################
 @usuario_router.post('/{id}/solicitar-conta/',
     response_model= UsuarioSolicitacaoResponse)
 def solicitar_conta(
@@ -35,4 +37,4 @@ def solicitar_conta(
     UsuarioService.solicitar_criacao_de_conta(db_usuario)
     db.commit()
 
-    return {"mensagem": "Conta solicitada com sucesso", "status": db_usuario.status}
+    return db_usuario
