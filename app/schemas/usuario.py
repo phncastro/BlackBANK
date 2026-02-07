@@ -15,15 +15,6 @@ class UsuarioBase(BaseModel):
     conta: Optional[Conta] = None
     model_config = ConfigDict(from_attributes=True)
 
-class UsuarioResponse(BaseModel):
-    id: int
-    nome: str
-    cpf: str
-    email: str 
-    status: StatusUsuario
-    conta: Optional[Conta] = None
-    model_config = ConfigDict(from_attributes=True)
-
 class UsuarioCreate(BaseModel):
     nome : str
     cpf: str
@@ -45,10 +36,7 @@ class UsuarioCreate(BaseModel):
     def email_valido(cls, email):
         return validar_email(email)
 
-class UsuarioCreateResponse(BaseModel):
-    mensagem: str
-    usuario_id: int
-
 class UsuarioSolicitacaoResponse(BaseModel):
-    mensagem: str
+    id: int
     status: StatusUsuario
+    model_config = ConfigDict(from_attributes=True)
