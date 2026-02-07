@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.models.conta import Conta
 from app.services.conta_service import ContaService
 from app.models.transacao import Transacao
-from app.core.transacoes import Transacoes
+from app.core.transacoes import TipoTransacao
 from datetime import datetime
 
 conta_router = APIRouter(prefix='/conta')
@@ -25,7 +25,7 @@ def deposito(
     ContaService.depositar(db_conta, id_e_valor.valor)
 
     db_transacao = Transacao(
-        tipo=Transacoes.DEPOSITO,
+        tipo=TipoTransacao.DEPOSITO,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
         data_hora=datetime.now())
@@ -56,7 +56,7 @@ def saque(
     ContaService.sacar(db_conta, id_e_valor.valor)
 
     db_transacao = Transacao(
-        tipo=Transacoes.SAQUE,
+        tipo=TipoTransacao.SAQUE,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
         data_hora=datetime.now())
@@ -85,7 +85,7 @@ def transferencia(
     ContaService.transferir(db_conta, db_destinatario, id_iddestinatario_valor.valor)
     
     db_transacao = Transacao(
-        tipo=Transacoes.TRANSFERENCIA,
+        tipo=TipoTransacao.TRANSFERENCIA,
         valor=id_iddestinatario_valor.valor,
         id_conta=db_conta.id,
         id_conta_destino=db_destinatario.id,
