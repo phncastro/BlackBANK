@@ -9,6 +9,7 @@ from app.schemas import usuario
 
 banco_router = APIRouter(prefix='/banco')
 
+##################################################################################
 @banco_router.post('/criar-conta/{id}/',
     response_model=Conta)
 def criar_conta(
@@ -27,6 +28,7 @@ def criar_conta(
 
     return conta
 
+##################################################################################
 @banco_router.get('/usuarios/',
     response_model= List[usuario.UsuarioBase])
 def ler_usuarios(
@@ -36,6 +38,7 @@ def ler_usuarios(
 
     return usuarios
 
+##################################################################################
 @banco_router.get('/{id}/',
     response_model= usuario.UsuarioBase)
 def consultar_usuario(
