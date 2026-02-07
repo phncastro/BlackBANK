@@ -1,6 +1,6 @@
 from enum import Enum
 
-class Transacoes(str, Enum):
+class TipoTransacao(str, Enum):
     DEPOSITO = 'depósito'
     SAQUE = 'saque'
     TRANSFERENCIA = 'transferência'
