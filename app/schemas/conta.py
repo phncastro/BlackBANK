@@ -22,7 +22,7 @@ class ContaTransacaoResponse(BaseModel):
     num_conta: str
     valor: int
     saldo: float
-    data_hora = datetime
+    data_hora: datetime
 
 class ContaTransferencia(BaseModel):
     num_conta: str
@@ -35,4 +35,4 @@ class ContaTransferenciaResponse(BaseModel):
     num_conta_destino: str
     valor: int
     saldo: float
-    data_hora = datetime
+    data_hora: datetime
