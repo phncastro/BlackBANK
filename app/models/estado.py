@@ -1,6 +1,6 @@
-from sqlalchemy import Integer, Column, Float, Enum, DateTime
+from sqlalchemy import Integer, DateTime, Enum, Column
 from app.database.database import Base
-from app.core.transacoes import TipoTransacao
+from app.core.status_usuario import StatusUsuario
 from datetime import datetime
 
 # Pega a data e hora atual
@@ -10,12 +10,8 @@ agora = datetime.now()
 # %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
 data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
 
-class Transacao(Base):
-
-    __tablename__ = 'transacoes'
+class Estado(Base):
+    __tablename__ = 'estados'
     id = Column(Integer, primary_key=True, index=True)
-    tipo = Column(Enum(TipoTransacao), nullable=False)
-    valor = Column(Float)
-    id_conta = Column(Integer)
-    id_conta_destino = Column(Integer)
+    estado = Column(Enum(StatusUsuario), nullable=False)
     data_hora = Column(DateTime, default=data_segundos, nullable=False)

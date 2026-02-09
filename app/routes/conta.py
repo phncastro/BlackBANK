@@ -10,6 +10,13 @@ from datetime import datetime
 
 conta_router = APIRouter(prefix='/conta')
 
+# Pega a data e hora atual
+agora = datetime.now()
+
+# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
+# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
+data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
+
 ##################################################################################
 @conta_router.post('/depositos/',
     response_model=ContaTransacaoResponse)
@@ -28,7 +35,7 @@ def deposito(
         tipo=TipoTransacao.DEPOSITO,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
-        data_hora=datetime.now())
+        data_hora=data_segundos)
     
     db.add(db_transacao)
     db.commit()
@@ -59,7 +66,7 @@ def saque(
         tipo=TipoTransacao.SAQUE,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
-        data_hora=datetime.now())
+        data_hora=data_segundos)
     
     db.add(db_transacao)
     db.commit()
@@ -76,20 +83,20 @@ def saque(
 @conta_router.post('/transferencias/',
     response_model=ContaTransferenciaResponse)
 def transferencia(
-    id_iddestinatario_valor: ContaTransferencia,
+    contas_e_valor: ContaTransferencia,
     db:Session=Depends(get_db)):
 
-    db_conta = db.query(Conta).filter(Conta.id == id_iddestinatario_valor.id).first()
-    db_destinatario = db.query(Conta).filter(Conta.id == id_iddestinatario_valor.destinatario_id).first()
+    db_conta = db.query(Conta).filter(Conta.numero == contas_e_valor.num_conta).first()
+    db_destinatario = db.query(Conta).filter(Conta.numero == contas_e_valor.num_conta_destino).first()
 
-    ContaService.transferir(db_conta, db_destinatario, id_iddestinatario_valor.valor)
+    ContaService.transferir(db_conta, db_destinatario, contas_e_valor.valor)
     
     db_transacao = Transacao(
         tipo=TipoTransacao.TRANSFERENCIA,
-        valor=id_iddestinatario_valor.valor,
+        valor=contas_e_valor.valor,
         id_conta=db_conta.id,
         id_conta_destino=db_destinatario.id,
-        data_hora=datetime.now())
+        data_hora=data_segundos)
     
     db.add(db_transacao)
     db.commit()
@@ -98,7 +105,7 @@ def transferencia(
         'id_transacao': db_transacao.id,
         'num_conta': db_conta.numero,
         'num_conta_destino': db_destinatario.numero,
-        'valor': id_iddestinatario_valor.valor,
+        'valor': contas_e_valor.valor,
         'saldo': db_conta.saldo,
         'data_hora': db_transacao.data_hora
     }

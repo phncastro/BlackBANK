@@ -6,8 +6,18 @@ from app.services.banco_service import BancoService
 from app.schemas.conta import Conta
 from typing import List
 from app.schemas import usuario
+from datetime import datetime
+from app.models.estado import Estado
+from app.core.status_usuario import StatusUsuario
 
 banco_router = APIRouter(prefix='/banco')
+
+# Pega a data e hora atual
+agora = datetime.now()
+
+# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
+# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
+data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
 
 ##################################################################################
 @banco_router.post('/criar-conta/{id}/',
@@ -22,6 +32,9 @@ def criar_conta(
         raise HTTPException(status_code=404, detail='ID de usuário não encontrada')
     
     conta = BancoService.criar_conta(db_usuario)
+
+    db.add(Estado(estado=db_usuario.status, data_hora=data_segundos))
+
     db.add(conta)
     db.commit()
     db.refresh(conta)

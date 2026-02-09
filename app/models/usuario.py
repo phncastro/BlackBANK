@@ -1,8 +1,15 @@
 from app.database.database import Base
-from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy import Column, Integer, String, Enum, DateTime
 from sqlalchemy.orm import relationship
 from app.core.status_usuario import StatusUsuario
+from datetime import datetime
 
+# Pega a data e hora atual
+agora = datetime.now()
+
+# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
+# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
+data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
 
 class Usuario(Base):
     ''' Classe Usuario, que representa a pessoa que deseja criar uma conta no Banco.
@@ -19,4 +26,5 @@ class Usuario(Base):
         back_populates= 'usuario',
         uselist=False,
         cascade="all, delete")
+    criado_em = Column(DateTime, default=data_segundos, nullable=False)
 

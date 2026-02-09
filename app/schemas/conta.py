@@ -6,6 +6,7 @@ class Conta(BaseModel):
     numero: str
     saldo: float
     usuario_id: int
+    criada_em: datetime
     model_config = ConfigDict(from_attributes=True)
 
 class ContaCreate(BaseModel):

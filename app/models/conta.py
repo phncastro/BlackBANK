@@ -7,8 +7,8 @@ from datetime import datetime
 agora = datetime.now()
 
 # Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
-# %Y=Ano, %m=Mês, %d=Dia, %H=Hora(24h), %M=Minuto, %S=Segundo
-data_segundos = agora.strftime("%Y-%m-%d %H:%M:%S")
+# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
+data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
 
 class Conta(Base):
     ''' Classe que representa a conta do usuário na instituição financeira Banco.'''

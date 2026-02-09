@@ -5,6 +5,7 @@ from app.core.validators.cpf import validar_cpf
 from app.core.validators.email import validar_email
 from app.core.validators.nome import validar_nome
 from app.core.status_usuario import StatusUsuario
+from datetime import datetime
 
 class UsuarioBase(BaseModel):
     id: int
@@ -13,6 +14,7 @@ class UsuarioBase(BaseModel):
     email: str 
     status: StatusUsuario
     conta: Optional[Conta] = None
+    criado_em: datetime
     model_config = ConfigDict(from_attributes=True)
 
 class UsuarioCreate(BaseModel):
@@ -39,4 +41,5 @@ class UsuarioCreate(BaseModel):
 class UsuarioSolicitacaoResponse(BaseModel):
     id: int
     status: StatusUsuario
+    criado_em: datetime
     model_config = ConfigDict(from_attributes=True)
