@@ -26,7 +26,7 @@ def criar_conta(
     
     conta = BancoService.criar_conta(db_usuario)
 
-    db.add(Estado(estado=db_usuario.status, data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
+    db.add(Estado(estado=db_usuario.status, data_hora=datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
 
     db.add(conta)
     db.commit()

@@ -4,6 +4,7 @@ from random import randint
 from app.services.usuario_service import UsuarioService
 from app.core.status_usuario import StatusUsuario
 from app.models.conta import Conta
+from datetime import datetime
 
 class BancoService:
     ''' Classe que guarda e realiza os métodos do banco '''
@@ -38,7 +39,10 @@ class BancoService:
                 )
         
         numero_gerado = BancoService._gerar_numero_da_conta()
-        conta = Conta(numero=numero_gerado, usuario_id=usuario.id)
+        conta = Conta(
+            numero=numero_gerado,
+            usuario_id=usuario.id,
+            criada_em=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
         UsuarioService._ativar_conta(usuario)
         return conta

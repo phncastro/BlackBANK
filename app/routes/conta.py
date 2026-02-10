@@ -28,7 +28,7 @@ def deposito(
         tipo=TipoTransacao.DEPOSITO,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
-        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+        data_hora=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     
     db.add(db_transacao)
     db.commit()
@@ -59,7 +59,7 @@ def saque(
         tipo=TipoTransacao.SAQUE,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
-        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+        data_hora=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     
     db.add(db_transacao)
     db.commit()
@@ -89,7 +89,7 @@ def transferencia(
         valor=contas_e_valor.valor,
         id_conta=db_conta.id,
         id_conta_destino=db_destinatario.id,
-        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+        data_hora=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     
     db.add(db_transacao)
     db.commit()

@@ -17,7 +17,12 @@ def criar_usuario(
     usuario: UsuarioCreate,
     db:Session=Depends(get_db)):
 
-    db_usuario = Usuario(nome=usuario.nome, cpf=usuario.cpf, email=usuario.email, criado_em=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
+    db_usuario = Usuario(
+        nome=usuario.nome,
+        cpf=usuario.cpf,
+        email=usuario.email,
+        criado_em=datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    
     db.add(db_usuario)
     db.commit()
     db.refresh(db_usuario)
@@ -38,7 +43,9 @@ def solicitar_conta(
     
     UsuarioService.solicitar_criacao_de_conta(db_usuario)
 
-    db.add(Estado(estado=db_usuario.status, data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
+    db.add(Estado(
+        estado=db_usuario.status,
+        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
 
     db.commit()
 
