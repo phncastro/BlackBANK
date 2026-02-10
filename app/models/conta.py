@@ -3,13 +3,6 @@ from app.database.database import Base
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
-# Pega a data e hora atual
-agora = datetime.now()
-
-# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
-# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
-data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
-
 class Conta(Base):
     ''' Classe que representa a conta do usuário na instituição financeira Banco.'''
 
@@ -23,7 +16,7 @@ class Conta(Base):
         unique=True,
         nullable=False)
     usuario = relationship('Usuario', back_populates= 'conta')
-    criada_em = Column(DateTime, default=data_segundos, nullable=False)
+    criada_em = Column(DateTime, nullable=False)
 
     @staticmethod
     def receber(conta_id, valor):

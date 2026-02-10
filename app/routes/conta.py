@@ -10,13 +10,6 @@ from datetime import datetime
 
 conta_router = APIRouter(prefix='/conta')
 
-# Pega a data e hora atual
-agora = datetime.now()
-
-# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
-# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
-data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
-
 ##################################################################################
 @conta_router.post('/depositos/',
     response_model=ContaTransacaoResponse)
@@ -35,7 +28,7 @@ def deposito(
         tipo=TipoTransacao.DEPOSITO,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
-        data_hora=data_segundos)
+        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
     
     db.add(db_transacao)
     db.commit()
@@ -66,7 +59,7 @@ def saque(
         tipo=TipoTransacao.SAQUE,
         valor=id_e_valor.valor,
         id_conta=db_conta.id,
-        data_hora=data_segundos)
+        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
     
     db.add(db_transacao)
     db.commit()
@@ -96,7 +89,7 @@ def transferencia(
         valor=contas_e_valor.valor,
         id_conta=db_conta.id,
         id_conta_destino=db_destinatario.id,
-        data_hora=data_segundos)
+        data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
     
     db.add(db_transacao)
     db.commit()

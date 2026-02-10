@@ -10,13 +10,6 @@ from app.core.status_usuario import StatusUsuario
 
 usuario_router = APIRouter(prefix='/usuarios')
 
-# Pega a data e hora atual
-agora = datetime.now()
-
-# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
-# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
-data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
-
 ##################################################################################
 @usuario_router.post('/criar-usuario/',
     response_model=UsuarioBase)
@@ -24,7 +17,7 @@ def criar_usuario(
     usuario: UsuarioCreate,
     db:Session=Depends(get_db)):
 
-    db_usuario = Usuario(nome=usuario.nome, cpf=usuario.cpf, email=usuario.email, criado_em=data_segundos)
+    db_usuario = Usuario(nome=usuario.nome, cpf=usuario.cpf, email=usuario.email, criado_em=datetime.now().strftime("%d-%m-%Y %H:%M:%S"))
     db.add(db_usuario)
     db.commit()
     db.refresh(db_usuario)
@@ -45,7 +38,7 @@ def solicitar_conta(
     
     UsuarioService.solicitar_criacao_de_conta(db_usuario)
 
-    db.add(Estado(estado=db_usuario.status, data_hora=data_segundos))
+    db.add(Estado(estado=db_usuario.status, data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
 
     db.commit()
 

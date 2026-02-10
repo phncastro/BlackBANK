@@ -3,13 +3,6 @@ from app.database.database import Base
 from app.core.transacoes import TipoTransacao
 from datetime import datetime
 
-# Pega a data e hora atual
-agora = datetime.now()
-
-# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
-# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
-data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
-
 class Transacao(Base):
 
     __tablename__ = 'transacoes'
@@ -18,4 +11,4 @@ class Transacao(Base):
     valor = Column(Float)
     id_conta = Column(Integer)
     id_conta_destino = Column(Integer)
-    data_hora = Column(DateTime, default=data_segundos, nullable=False)
+    data_hora = Column(DateTime, nullable=False)

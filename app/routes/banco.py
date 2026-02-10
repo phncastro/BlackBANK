@@ -12,13 +12,6 @@ from app.core.status_usuario import StatusUsuario
 
 banco_router = APIRouter(prefix='/banco')
 
-# Pega a data e hora atual
-agora = datetime.now()
-
-# Formata para ANO-MÊS-DIA HORA:MINUTO:SEGUNDO
-# %D=Dia, %m=Mês, %Y=Ano, %H=Hora(24h), %M=Minuto, %S=Segundo
-data_segundos = agora.strftime("%d-%m-%Y %H:%M:%S")
-
 ##################################################################################
 @banco_router.post('/criar-conta/{id}/',
     response_model=Conta)
@@ -33,7 +26,7 @@ def criar_conta(
     
     conta = BancoService.criar_conta(db_usuario)
 
-    db.add(Estado(estado=db_usuario.status, data_hora=data_segundos))
+    db.add(Estado(estado=db_usuario.status, data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
 
     db.add(conta)
     db.commit()
