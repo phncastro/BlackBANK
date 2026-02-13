@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from app.schemas.usuario import UsuarioCreate, UsuarioBase, UsuarioSolicitacaoResponse
 from app.database.database import get_db
 from sqlalchemy.orm import Session
@@ -8,15 +8,21 @@ from datetime import datetime
 from app.models.estado import Estado
 from app.core.status_usuario import StatusUsuario
 
-usuario_router = APIRouter(prefix='/usuarios')
+# Prefixo dos endpoints de usuario
+usuario_router = APIRouter(prefix='/usuario', tags=['usuario'])
 
-##################################################################################
-@usuario_router.post('/criar-usuario/',
-    response_model=UsuarioBase)
+
+# Cria um novo usuário
+@usuario_router.post(
+    '/criar-usuario/',
+    description='Cria um novo usuário',
+    status_code=status.HTTP_201_CREATED,
+    response_model=UsuarioBase
+)
 def criar_usuario(
     usuario: UsuarioCreate,
-    db:Session=Depends(get_db)):
-
+    db:Session=Depends(get_db)
+):
     db_usuario = Usuario(
         nome=usuario.nome,
         cpf=usuario.cpf,
@@ -29,24 +35,27 @@ def criar_usuario(
 
     return db_usuario
 
-##################################################################################
-@usuario_router.post('/{id}/solicitar-conta/',
-    response_model= UsuarioSolicitacaoResponse)
+
+# Usuário solicita a criação da conta ao Banco
+@usuario_router.post(
+    '/{user_id}/solicitar-conta/',
+    description='Solicita a criação da conta do usuário para o banco',
+    status_code=status.HTTP_201_CREATED,
+    response_model= UsuarioSolicitacaoResponse
+)
 def solicitar_conta(
-    id:int,
-    db:Session=Depends(get_db)):
-
-    db_usuario = db.query(Usuario).filter(Usuario.id == id).first()
-
+    user_id:int,
+    db:Session=Depends(get_db)
+):
+    db_usuario = db.query(Usuario).filter(Usuario.id == user_id).first()
     if db_usuario is None:
         raise HTTPException(status_code=404, detail='Usuário não encontrado')
-    
     UsuarioService.solicitar_criacao_de_conta(db_usuario)
 
     db.add(Estado(
-        estado=db_usuario.status,
+        estado_anterior=StatusUsuario.SEM_CONTA,
+        estado_atual=StatusUsuario.SOLICITACAO_PENDENTE,
         data_hora=datetime.now().strftime("%d-%m-%Y %H:%M:%S")))
-
     db.commit()
 
     return db_usuario

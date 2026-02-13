@@ -4,11 +4,15 @@ from app.core.transacoes import TipoTransacao
 from datetime import datetime
 
 class Transacao(Base):
+    '''
+    Transação feita por Usuários, seja depósito, saque ou transferência
+    '''
 
+# Cria a tabela, suas colunas e seus tipos
     __tablename__ = 'transacoes'
     id = Column(Integer, primary_key=True, index=True)
     tipo = Column(Enum(TipoTransacao), nullable=False)
     valor = Column(Float)
-    id_conta = Column(Integer)
-    id_conta_destino = Column(Integer)
+    num_conta = Column(Integer)
+    num_conta_destino = Column(Integer)
     data_hora = Column(DateTime, nullable=False)

@@ -7,16 +7,18 @@ from app.core.validators.nome import validar_nome
 from app.core.status_usuario import StatusUsuario
 from datetime import datetime
 
+# Válida todos os campos de Usuario
 class UsuarioBase(BaseModel):
-    id: int
+    id: int 
     nome: str
     cpf: str
-    email: str 
+    email: str
     status: StatusUsuario
     conta: Optional[Conta] = None
     criado_em: datetime
     model_config = ConfigDict(from_attributes=True)
 
+# Válida dados para criação de Usuario
 class UsuarioCreate(BaseModel):
     nome : str
     cpf: str
@@ -38,6 +40,7 @@ class UsuarioCreate(BaseModel):
     def email_valido(cls, email):
         return validar_email(email)
 
+# Válida response body da solicitação de conta pelo usuário
 class UsuarioSolicitacaoResponse(BaseModel):
     id: int
     status: StatusUsuario

@@ -2,7 +2,7 @@ from app.core.exceptions import EntradaInvalidaError, LimiteDepositoError, Limit
 from app.models.conta import Conta
 
 class ContaService:
-    ''' Classe que representa os serviços possiveis da classe Conta.'''
+    ''' Realiza os serviços possiveis da classe Conta.'''
 
 
     # REGRAS #
@@ -34,14 +34,14 @@ class ContaService:
 
     @staticmethod
     def regras_de_saque(valor, saldo):
-        ''' Método que define as regras para saque na conta.
+        ''' Define as regras para saque na conta.
         
             Parâmetros:
             
-            - valor: Valor a ser filtrado e verificado se é possível fazer o depósito.
+            - valor: Valor a ser filtrado e verificado se é possível fazer o saque.
             - saldo: Saldo atual da conta, será consultado para verificar se possui saldo suficiente.
             
-            Return: Erro, se não for possível, se for autoriza o saque.
+            Return: Se for possível autoriza o saque, se não Erro.
             Define limites de saque entre R$20,00 e o saldo disponível.
         '''
         try:
@@ -59,15 +59,15 @@ class ContaService:
 
     @staticmethod
     def regras_de_transferencia(valor, saldo):
-        ''' Método que define as regras para transferência na conta.
+        ''' Define as regras para transferência entre contas.
         
             Parâmetros:
             
-            - Valor: Valor a ser filtrado e verificado se é possível fazer o depósito.
+            - Valor: Valor a ser filtrado e verificado se é possível fazer a transferência.
             - saldo: Saldo atual da conta, será consultado para verificar se possui saldo suficiente
 
-            Return: Erro, se não for possível, se for autoriza o depósito.
-            Define limites de transfêrencia de no máximo o saldo disponível na conta.
+            Return: Realiza transferência de valor entre contas se possivel, se não Erro.
+            Define limite de transfêrencia de no máximo o saldo disponível na conta.
         '''
         try:
             valor = float(valor)
@@ -87,11 +87,12 @@ class ContaService:
 
     @staticmethod
     def depositar(conta, valor):
-        ''' Método que deposita um valor na conta do usuário.
+        ''' Deposita um valor na conta do usuário
 
             Parâmetros:
 
-            - valor: Valor a ser depositado na conta.
+            - conta: Conta a receber o valor
+            - valor: Valor a ser depositado na conta
         '''
         ContaService.regras_de_deposito(valor)
         conta.saldo += valor
@@ -101,11 +102,12 @@ class ContaService:
 
     @staticmethod
     def sacar(conta, valor):
-        ''' Método que permite o usuário sacar um valor da conta.
+        ''' Método que permite o usuário sacar um valor da conta
 
             Parâmetros:
 
-            - valor: Valor do saque desejado.
+            - conta: Conta a debitar o valor
+            - valor: Valor do saque desejado
         '''
         ContaService.regras_de_saque(valor, conta.saldo)
         conta.saldo -= valor
@@ -114,13 +116,14 @@ class ContaService:
     
 
     @staticmethod
-    def transferir(conta_remetente: Conta, conta_destino: Conta, valor: int):
-        ''' Método que permite o usuário transferir um valor para outra conta.
+    def transferir(conta_remetente:Conta,conta_destino:Conta, valor:int):
+        ''' Realiza a transferência de saldo, de uma conta para outra
 
             Parâmetros:
 
-            - conta: Conta que irá receber o valor transferido.
-            - valor: Valor a ser transferido para a conta desejada.
+            - conta_remetente: Conta a enviar o valor
+            - conta_desitno: Conta que irá receber o valor transferido
+            - valor: Valor a ser transferido
         '''
 
         ContaService.regras_de_transferencia(valor, conta_remetente.saldo)

@@ -4,8 +4,11 @@ from sqlalchemy.orm import relationship
 from datetime import datetime
 
 class Conta(Base):
-    ''' Classe que representa a conta do usuário na instituição financeira Banco.'''
+    '''
+    Conta do usuário na instituição financeira Banco,
+    '''
 
+# Define a tabela, as colunas e seus tipos
     __tablename__ = 'contas'
     id = Column(Integer, primary_key=True, index=True)
     numero = Column(String, unique=True, nullable=False, index=True)
@@ -18,27 +21,23 @@ class Conta(Base):
     usuario = relationship('Usuario', back_populates= 'conta')
     criada_em = Column(DateTime, nullable=False)
 
+# Métodos de Conta
+
     @staticmethod
     def receber(conta_id, valor):
-        ''' Método que permite a conta alterar o valor do saldo,
-            adicionando o valor de uma transferência. 
-            
-            parâmetros:
-
-            - valor: Valor que irá ser adicionado no saldo da conta.
         '''
+        Adiciona saldo a conta
+        '''
+
         conta_id.saldo += valor
 
 
     @staticmethod
     def enviar(conta_id, valor):
-        ''' Método que permite a conta alterar o valor do saldo,
-            diminuindo o valor de uma transferência. 
-            
-            parâmetros:
-
-            - valor: Valor que irá ser debitado no saldo da conta.
         '''
+        Subtrai valor no saldo da conta
+        '''
+
         conta_id.saldo -= valor
 
 

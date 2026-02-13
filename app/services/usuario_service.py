@@ -3,19 +3,15 @@ from app.core.status_usuario import StatusUsuario
 from app.models.usuario import Usuario
 
 class UsuarioService: 
-    ''' Classe que guarda os métodos possiveis da classe Usuario '''
+    ''' Realiza os serviços possíveis da classe Usuario '''
 
     @staticmethod
     def solicitar_criacao_de_conta(usuario:Usuario):
-        ''' Método que permite ao usuário solicitar a criação da conta.
+        ''' Solicita a criação de conta para o usuário
 
             Parâmetros:
 
             - usuario: Usuário que fez a solicitação
-
-            return: Erro, se o status do usuário nao for StatusUsuario.SEM_CONTA,
-            se o estado atual for SEM_CONTA, permite ele fazer a solicitação,
-            alterando assim o estado para SOLICITACAO_PENDENTE.
         '''
 
         if usuario.status == StatusUsuario.SOLICITACAO_PENDENTE:
@@ -34,13 +30,12 @@ class UsuarioService:
 
     @staticmethod
     def _ativar_conta(usuario:Usuario):
-        ''' Método que ativa a conta do usuário quando for aprovada pelo banco.
+        ''' Altera o Estado da conta para CONTA_ATIVA quando o banco criar a conta
+            para o usuário
         
             Parâmetros:
             
-            - usuario: Usuário que terá a conta ativa.
-
-            Return: faz a ativação da conta, alterando o estado para CONTA_ATIVA.
+            - usuario: Usuário que teve a conta ativa
         ''' 
                
         if usuario.status == StatusUsuario.SOLICITACAO_PENDENTE:

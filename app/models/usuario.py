@@ -6,9 +6,11 @@ from datetime import datetime
 
 
 class Usuario(Base):
-    ''' Classe Usuario, que representa a pessoa que deseja criar uma conta no Banco.
-        Modelo de sqlalchemy '''
+    '''
+    Pessoa que deseja possuir conta no Banco
+    '''
 
+# Cria a tabela, suas colunas e seus tipos
     __tablename__ = 'usuarios'
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String, nullable=False)

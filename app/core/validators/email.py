@@ -10,6 +10,9 @@ dominios_permitidos = [
 ]
 
 def validar_email(email:str):
+    '''
+        Válida o formato e domínio do CPF -> Email válido
+    '''
     if not re.match(EMAIL_REGEX, email):
         raise EmailInvalidoError('Formato de e-mail inválido')
     

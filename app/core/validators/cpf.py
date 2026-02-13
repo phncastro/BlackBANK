@@ -3,6 +3,9 @@ from app.core.exceptions import CpfInvalidoError
 from app.core.validators.regex import CPF_REGEX
 
 def validar_cpf(cpf:str):
+    '''
+        Válida o formato e tamanho do CPF -> CPF válido   
+    '''
     cpf = re.sub(r'[.-]', '', cpf)
 
     if not re.match(CPF_REGEX, cpf):

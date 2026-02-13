@@ -7,7 +7,9 @@ from app.models.conta import Conta
 from datetime import datetime
 
 class BancoService:
-    ''' Classe que guarda e realiza os métodos do banco '''
+    '''
+    Realiza todos os métodos do Banco
+    '''
 
     @staticmethod
     def _gerar_numero_da_conta():
@@ -19,14 +21,9 @@ class BancoService:
 
 
     @staticmethod
-    def criar_conta(usuario: Usuario):
+    def criar_conta(usuario:Usuario):
         ''' 
-        parâmetros: 
-
-        - usuario: Usuário que deseja criar a conta.
-
-        return: Erro, se o usuário não puder ter a conta criada, ou se puder,
-        cria a conta e gera o número para essa conta.
+        Verifica se o usuário pode ter a conta criada e cria se possível
         '''
         if usuario.status == StatusUsuario.SEM_CONTA:
             raise CriacaoDeContaNegadaError(
