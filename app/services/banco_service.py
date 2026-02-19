@@ -43,12 +43,3 @@ class BancoService:
 
         UsuarioService._ativar_conta(usuario)
         return conta
-
-        
-
-
-            
-
-    
-
-
